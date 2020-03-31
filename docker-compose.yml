@@ -9,3 +9,17 @@ services:
       - ./mongodb:/data/db
     ports:
       - 27017:27017
+
+  db:
+    container_name: mysql-sample
+    image: mysql:5.7
+    volumes:
+      - ./mysql:/var/lib/mysql
+      - ./initdb.d:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=reactive_sample
+    command: ['--character-set-server=utf8', '--collation-server=utf8_general_ci']
+    restart: always
+    ports:
+      - 3307:3306
