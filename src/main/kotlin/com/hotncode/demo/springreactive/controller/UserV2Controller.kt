@@ -34,7 +34,7 @@ class UserV2Controller(val userRepository: UserMysqlRepository) {
             = filterVO.name?.let {userRepository.findByNameStartsWith("${filterVO.name}%")} ?: userRepository.findAll()
 
     @PutMapping("/{id}")
-    fun update(@PathVariable id: Long, @RequestBody user: User)
+    fun update(@PathVariable id: Long, @RequestBody user: UserMysql)
             = userRepository.findById(id).flatMap {
                 it.address = user.address
                 it.age = user.age

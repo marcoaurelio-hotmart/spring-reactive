@@ -5,7 +5,6 @@ CREATE TABLE user
     id bigint PRIMARY KEY NOT NULL AUTO_INCREMENT,
     name varchar(250) NOT NULL,
     email varchar(250) NOT NULL,
-    password varchar(250) NOT NULL,
     age int NOT NULL
 ) ENGINE=InnoDB;
 
