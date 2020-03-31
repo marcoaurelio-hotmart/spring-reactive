@@ -23,7 +23,7 @@ data class Address(val street: String,
 data class UserMysql(@Id val id: Long?,
                      var name: String,
                      var email: String,
-                     var age: Int,
+                     var age: Int?,
                      var address: AddressMysql?)
 
 @Table("address")

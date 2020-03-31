@@ -14,7 +14,11 @@ class UserWriteMysqlConverter: Converter<UserMysql, OutboundRow> {
         source.id?.let { out.put("id", SettableValue.from(it)) }
         out.put("name", SettableValue.from(source.name))
         out.put("email", SettableValue.from(source.email))
-        out.put("age", SettableValue.from(source.age))
+        //out.put("age", SettableValue.from(source.age))
+        source.age?.let {
+            out.put("age", SettableValue.from(it))
+        }
+
         source.address?.let {
             it.id?.let { id -> out.put("address_id", SettableValue.from(id)) }
         }
