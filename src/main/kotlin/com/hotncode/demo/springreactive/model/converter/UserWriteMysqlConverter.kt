@@ -11,10 +11,14 @@ class UserWriteMysqlConverter: Converter<UserMysql, OutboundRow> {
 
     override fun convert(source: UserMysql): OutboundRow {
         val out = OutboundRow()
-        source.id?.let { out.put("id", SettableValue.from(source.id)) }
+        source.id?.let { out.put("id", SettableValue.from(it)) }
         out.put("name", SettableValue.from(source.name))
         out.put("email", SettableValue.from(source.email))
         out.put("age", SettableValue.from(source.age))
+        source.address?.let {
+            it.id?.let { id -> out.put("address_id", SettableValue.from(id)) }
+        }
+
         return out
     }
 }

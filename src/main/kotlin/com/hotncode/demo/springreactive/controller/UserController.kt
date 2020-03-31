@@ -20,7 +20,7 @@ class UserController(val userMongoRepository: UserMongoRepository) {
     @PostMapping
     fun create(@RequestBody user: Mono<User>, uriComponentsBuilder: UriComponentsBuilder)
             =  user.filterWhen {
-                userMongoRepository.findByNameStartsWith(it.name).count().map { size -> size == 0L }
+                userMongoRepository.existsUserByEmail(it.email).map { !it }
             }.flatMap {
                 userMongoRepository.save(it).map { userSaved ->
                     val uri = uriComponentsBuilder.path("/user/v1/${userSaved.id!!}").build()
@@ -31,7 +31,7 @@ class UserController(val userMongoRepository: UserMongoRepository) {
     @PostMapping("/bulk")
     fun createBulk(@RequestBody user : Flux<User>)
             = user.filterWhen {
-                userMongoRepository.findByNameStartsWith(it.name).count().map { size -> size == 0L }
+                userMongoRepository.existsUserByEmail(it.email).log().map { exists -> !exists }
             }.flatMap { userMongoRepository.save(it) }
 
 

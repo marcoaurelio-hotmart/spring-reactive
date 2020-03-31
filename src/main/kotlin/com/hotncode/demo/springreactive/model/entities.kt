@@ -24,10 +24,10 @@ data class UserMysql(@Id val id: Long?,
                      var name: String,
                      var email: String,
                      var age: Int,
-                     var address: Address?)
+                     var address: AddressMysql?)
 
 @Table("address")
-data class AddressMysql(val id: Long?,
+data class AddressMysql(@Id val id: Long?,
                    val street: String,
                    val number: String,
                    val city: String,
