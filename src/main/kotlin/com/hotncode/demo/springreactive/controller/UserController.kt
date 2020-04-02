@@ -4,6 +4,7 @@ import com.hotncode.demo.springreactive.dto.UserFilterVO
 import com.hotncode.demo.springreactive.model.User
 import com.hotncode.demo.springreactive.repo.mongo.UserMongoRepository
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
@@ -51,4 +52,7 @@ class UserController(val userMongoRepository: UserMongoRepository) {
                 it.name = user.name
             userMongoRepository.save(it)
             }.map { ResponseEntity.ok(it) }.defaultIfEmpty(ResponseEntity.notFound().build())
+
+    @GetMapping("/tail", produces = [MediaType.TEXT_EVENT_STREAM_VALUE])
+    fun findUsers() = userMongoRepository.findWithTailableCursorBy()
 }

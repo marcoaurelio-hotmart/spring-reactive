@@ -7,7 +7,7 @@ import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
 
 @Document
-data class User(@Id val id: String?,
+data class User(@Id val id: String?=null,
                 var name: String,
                 var email: String,
                 var age: Int,
